@@ -28,14 +28,21 @@ layoutv1.addLayout(layouth1)
 layoutv1.addLayout(layouth2)
 RadioGroupBox.setLayout(layoutv1)
 
+# answer result component
+answerResultGroup = QGroupBox("Test Result")
+answerGroupLayout = QVBoxLayout()
+result = QLabel("You answer is")
+answerGroupLayout.addWidget(result, alignment=Qt.AlignCenter)
+answerResultGroup.setLayout(answerGroupLayout)
+
 
 # main window
 main_win.setWindowTitle('Card Game')
 mainlayout.addWidget(question,alignment=Qt.AlignCenter)
 mainlayout.addWidget(RadioGroupBox,alignment=Qt.AlignCenter)
+mainlayout.addWidget(answerResultGroup)
 mainlayout.addWidget(answerbtn,alignment=Qt.AlignCenter)
 main_win.setLayout(mainlayout)
-
 
 main_win.show()
 app.exec_()
