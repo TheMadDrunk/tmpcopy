@@ -3,6 +3,17 @@ from PyQt5.QtWidgets import QApplication, QWidget, QGroupBox, QVBoxLayout, QRadi
 
 app = QApplication([])
 
+
+
+questions = [
+    {
+        "question":"some question ?",
+        "options":["answer1","asnwer2","answer3","answer4"],
+        "answer":"answer2"}
+    ]
+
+
+
 # widgets
 main_win = QWidget()
 RadioGroupBox = QGroupBox("Answer options")
@@ -52,7 +63,7 @@ answerResultGroup.hide()
 nextbtn.hide()
 
 def setAnswerValue():
-    global answervalue
+    global answervalue, rbtn_1, rbtn_3, rbtn_2, rbtn_4
     if(rbtn_1.isChecked()):
         answervalue = rbtn_1.text()
         rbtn_1.setChecked(False)
