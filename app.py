@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QGroupBox, QVBoxLayout, QRadioButton, QHBoxLayout, QPushButton, QLabel
-
+import random
 app = QApplication([])
 
 
@@ -9,10 +9,21 @@ questions = [
     {
         "question":"some question ?",
         "options":["answer1","asnwer2","answer3","answer4"],
-        "answer":"answer2"}
-    ]
+        "answer":"answer2"
+    },
+    {
+        "question":"some question 1 ?",
+        "options":["answer1","asnwer2","answer3","answer4"],
+        "answer":"answer2"
+    },
+    {
+        "question":"some question 2 ?",
+        "options":["answer1","asnwer2","answer3","answer4"],
+        "answer":"answer2"
+    }
+]
 
-
+correctAnswer = "Smurfs"
 
 # widgets
 main_win = QWidget()
@@ -79,10 +90,10 @@ def setAnswerValue():
 
 
 def checkAnswer():
-    global answervalue
+    global answervalue, correctAnswer
     setAnswerValue()
 
-    if(answervalue == "Smurfs"):
+    if(answervalue == correctAnswer):
         result.setText("You answer is CORRECT")
     else:
         result.setText("You answer is WRONG")
@@ -93,11 +104,29 @@ def checkAnswer():
     RadioGroupBox.hide()
     answerbtn.hide()
 
-
-
 answerbtn.clicked.connect(checkAnswer)
 
+def get_random_question():
+    global questions
+    return random.choice(questions)
+
+def setup_question(choix):
+    global question, rbtn_1, rbtn_2, rbtn_3, rbtn_4, correctAnswer
+
+    question.setText(choix["question"])
+    rbtn_1.setText(choix['options'][0])
+    rbtn_2.setText(choix['options'][1])
+    rbtn_3.setText(choix['options'][2])
+    rbtn_4.setText(choix['options'][3])
+
+    correctAnswer = choix['answer']
+    
+
+
 def nextQuestion():
+
+    setup_question(get_random_question())
+    
     answerResultGroup.hide()
     nextbtn.hide()
 
