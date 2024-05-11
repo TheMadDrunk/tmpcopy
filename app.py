@@ -1,18 +1,25 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QWidget,  QVBoxLayout, QTextEdit, QPushButton
+from PyQt5.QtWidgets import QApplication, QListWidgetItem, QWidget, QListWidget,  QVBoxLayout, QTextEdit, QPushButton, QHBoxLayout
 
 MyApp = QApplication([])
 
 MainWin = QWidget()
 
-mainLayout = QVBoxLayout()
+mainLayout = QHBoxLayout()
+letfLayout = QVBoxLayout()
+rightLayout = QVBoxLayout()
+
+mainLayout.addLayout(letfLayout)
+mainLayout.addLayout(rightLayout)
 
 MainWin.setLayout(mainLayout)
 
 fileContent = ""
-
-with open("file.txt","r") as readingFile:
-    fileContent = readingFile.read()
+try:
+    with open("file.txt","r") as readingFile:
+        fileContent = readingFile.read()
+except:
+    print("file does not exist")
 
 textEdit = QTextEdit(fileContent)
 saveButton =QPushButton("Save")
@@ -22,19 +29,24 @@ def onClickSave():
     with open("file.txt",'w') as file:
         file.write(textEdit.toPlainText())
 
-mainLayout.addWidget(textEdit,alignment=Qt.AlignCenter)
-mainLayout.addWidget(saveButton,alignment=Qt.AlignCenter)
+# LEFT
+letfLayout.addWidget(textEdit,alignment=Qt.AlignCenter)
+letfLayout.addWidget(saveButton,alignment=Qt.AlignCenter)
 
 saveButton.clicked.connect(onClickSave)
 
 
+#RIGHT
+widgetList = QListWidget()
+widgetList.addItem(QListWidgetItem("My Item"))
+rightLayout.addWidget(widgetList)
+
 MainWin.show()
 MyApp.exec_()
 
-myNotes = {
-    "todos":"my_todos.txt"
-}
 
-# find a widget that allows the user to write text -> QTextEdit
-# create a GUI using that widget 
-# crete a button that saves the text to a file 
+# TODO :
+# CREATE A DICTIONNARY WITH  KEY: note_name  VALUE: file_path
+# CREATE QwitdgetItems out of the DICTIONNARY
+# create files that are in that dictionnary
+# open the selected files in that list
